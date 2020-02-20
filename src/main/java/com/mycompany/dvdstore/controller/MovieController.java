@@ -9,6 +9,14 @@ public class MovieController {
 
     private MovieServiceInterface movieService;
 
+    public MovieServiceInterface getMovieService() {
+        return movieService;
+    }
+
+    public void setMovieService(MovieServiceInterface movieService) {
+        this.movieService = movieService;
+    }
+
     public void addUsingConsole(){
         System.out.println( "What is the movie title?" );
         Scanner scanner=new Scanner(System.in);
