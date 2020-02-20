@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoLiveMovieRepository {
+public class GoLiveMovieRepository implements MovieRepositoryInterface{
 
     public void add(Movie movie){
         FileWriter writer;

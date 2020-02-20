@@ -5,9 +5,10 @@ import com.mycompany.dvdstore.repository.GoLiveMovieRepository;
 
 public class MovieService {
 
-    private GoLiveMovieRepository movieRepository=new GoLiveMovieRepository();
+    private GoLiveMovieRepository movieRepository;
 
     public void registerMovie(Movie movie){
+
         movieRepository.add(movie);
     }
 }
