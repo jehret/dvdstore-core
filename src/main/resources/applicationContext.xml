@@ -8,12 +8,9 @@
 
     <context:annotation-config/>
     <context:property-placeholder location="classpath:application.properties"/>
-
-    <bean id="movieRepository" class="com.mycompany.dvdstore.repository.FileMovieRepository"/>
-
-    <bean id="movieService" class="com.mycompany.dvdstore.service.DefaultMovieService"/>
-
-    <bean id="movieController" class="com.mycompany.dvdstore.controller.MovieController"/>
+    <context:component-scan base-package="com.mycompany.dvdstore.repository.file"/>
+    <context:component-scan base-package="com.mycompany.dvdstore.service"/>
+    <context:component-scan base-package="com.mycompany.dvdstore.controller"/>
     
 
 </beans>

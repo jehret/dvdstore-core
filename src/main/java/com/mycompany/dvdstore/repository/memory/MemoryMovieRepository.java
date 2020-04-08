@@ -1,11 +1,14 @@
-package com.mycompany.dvdstore.repository;
+package com.mycompany.dvdstore.repository.memory;
 
 import com.mycompany.dvdstore.entity.Movie;
+import com.mycompany.dvdstore.repository.MovieRepositoryInterface;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemoryMovieRepository implements MovieRepositoryInterface{
+@Repository
+public class MemoryMovieRepository implements MovieRepositoryInterface {
 
     private List<Movie> movies=new ArrayList<>();
 
