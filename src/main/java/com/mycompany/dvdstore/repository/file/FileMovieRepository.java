@@ -9,7 +9,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class FileMovieRepository implements MovieRepositoryInterface {
@@ -18,10 +20,14 @@ public class FileMovieRepository implements MovieRepositoryInterface {
     private File file;
 
     public void add(Movie movie){
+
+        long lastId=list().stream().map(Movie::getId).max(Long::compare).orElse(0L);
+        movie.setId(lastId+1);
+
         FileWriter writer;
         try{
             writer=new FileWriter(file,true);
-            writer.write(movie.getTitle()+";"+movie.getGenre()+"\n");
+            writer.write(movie.getId()+";"+movie.getTitle()+";"+movie.getGenre()+";"+movie.getDescription()+"\n");
             writer.close();
         }
         catch (IOException e){
