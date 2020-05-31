@@ -19,7 +19,7 @@ public class FileMovieRepository implements MovieRepositoryInterface {
     @Value("${movies.file.location}")
     private File file;
 
-    public void add(Movie movie){
+    public Movie add(Movie movie){
 
         long lastId=list().stream().map(Movie::getId).max(Long::compare).orElse(0L);
         movie.setId(lastId+1);
@@ -34,6 +34,7 @@ public class FileMovieRepository implements MovieRepositoryInterface {
             e.printStackTrace();
         }
         System.out.println("The movie "+movie.getTitle()+" has been added.");
+        return movie;
     }
 
     @Override
