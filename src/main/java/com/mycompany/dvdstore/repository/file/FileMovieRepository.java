@@ -13,7 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+//@Repository
 public class FileMovieRepository implements MovieRepositoryInterface {
 
     @Value("${movies.file.location}")
