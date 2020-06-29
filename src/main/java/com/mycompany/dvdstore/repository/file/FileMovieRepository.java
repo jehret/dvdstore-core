@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 //@Repository
 public class FileMovieRepository implements MovieRepositoryInterface {
@@ -19,9 +20,10 @@ public class FileMovieRepository implements MovieRepositoryInterface {
     @Value("${movies.file.location}")
     private File file;
 
-    public Movie add(Movie movie){
+    @Override
+    public Movie save(Movie movie){
 
-        long lastId=list().stream().map(Movie::getId).max(Long::compare).orElse(0L);
+        long lastId=StreamSupport.stream(findAll().spliterator(), false).map(Movie::getId).max(Long::compare).orElse(0L);
         movie.setId(lastId+1);
 
         FileWriter writer;
@@ -38,7 +40,7 @@ public class FileMovieRepository implements MovieRepositoryInterface {
     }
 
     @Override
-    public List<Movie> list() {
+    public Iterable<Movie> findAll() {
 
         List<Movie> movies=new ArrayList<>();
 
@@ -63,7 +65,7 @@ public class FileMovieRepository implements MovieRepositoryInterface {
     }
 
     @Override
-    public Movie getById(long id) {
+    public Optional<Movie> findById(Long id) {
         final Movie movie = new Movie();
         movie.setId(id);
         try(BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -75,7 +77,7 @@ public class FileMovieRepository implements MovieRepositoryInterface {
                     movie.setTitle(allProperties[1]);
                     movie.setGenre(allProperties[2]);
                     movie.setDescription(allProperties[3]);
-                    return movie;
+                    return Optional.of(movie);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -89,7 +91,47 @@ public class FileMovieRepository implements MovieRepositoryInterface {
         movie.setTitle("UNKNOWN");
         movie.setGenre("UNKNOWN");
         movie.setDescription("UNKNOWN");
-        return movie;
+        return Optional.of(movie);
+    }
+
+    @Override
+    public Iterable<Movie> findAllById(Iterable<Long> iterable) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public long count() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void deleteById(Long aLong) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void delete(Movie movie) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends Movie> iterable) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void deleteAll() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <S extends Movie> Iterable<S> saveAll(Iterable<S> iterable) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean existsById(Long aLong) {
+        return false;
     }
 
     public File getFile() {
