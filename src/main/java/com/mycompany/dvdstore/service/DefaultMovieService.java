@@ -39,13 +39,10 @@ public class DefaultMovieService implements MovieServiceInterface{
             throw new NoSuchElementException();
         }
         Movie movie=optionalMovie.get();
-        //Initialize proxys
-        movie.getMainActor().getFirstName();
-        movie.getReviews().forEach(review -> {
-            review.getMark();
-            review.setMovie(null);
-        });
-        //
+
+        movie.getReviews().forEach(review ->
+                review.setMovie(null)
+        );
 
         return movie;
     }
