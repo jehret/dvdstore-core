@@ -3,13 +3,9 @@ package com.mycompany.dvdstore.repository.file;
 import com.mycompany.dvdstore.entity.Movie;
 import com.mycompany.dvdstore.repository.MovieRepositoryInterface;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -112,6 +108,20 @@ public class FileMovieRepository implements MovieRepositoryInterface {
     @Override
     public void delete(Movie movie) {
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Deletes all instances of the type {@code T} with the given IDs.
+     * <p>
+     * Entities that aren't found in the persistence store are silently ignored.
+     *
+     * @param longs must not be {@literal null}. Must not contain {@literal null} elements.
+     * @throws IllegalArgumentException in case the given {@literal ids} or one of its elements is {@literal null}.
+     * @since 2.5
+     */
+    @Override
+    public void deleteAllById(Iterable<? extends Long> longs) {
+
     }
 
     @Override
