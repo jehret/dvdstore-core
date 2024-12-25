@@ -1,7 +1,7 @@
 package com.mycompany.dvdstore.entity;
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Actor {
