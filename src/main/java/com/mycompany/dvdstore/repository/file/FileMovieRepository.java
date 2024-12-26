@@ -3,13 +3,9 @@ package com.mycompany.dvdstore.repository.file;
 import com.mycompany.dvdstore.entity.Movie;
 import com.mycompany.dvdstore.repository.MovieRepositoryInterface;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -21,32 +17,31 @@ public class FileMovieRepository implements MovieRepositoryInterface {
     private File file;
 
     @Override
-    public Movie save(Movie movie){
+    public Movie save(Movie movie) {
 
-        long lastId=StreamSupport.stream(findAll().spliterator(), false).map(Movie::getId).max(Long::compare).orElse(0L);
-        movie.setId(lastId+1);
+        long lastId = StreamSupport.stream(findAll().spliterator(), false).map(Movie::getId).max(Long::compare).orElse(0L);
+        movie.setId(lastId + 1);
 
         FileWriter writer;
-        try{
-            writer=new FileWriter(file,true);
-            writer.write(movie.getId()+";"+movie.getTitle()+";"+movie.getGenre()+";"+movie.getDescription()+"\n");
+        try {
+            writer = new FileWriter(file, true);
+            writer.write(movie.getId() + ";" + movie.getTitle() + ";" + movie.getGenre() + ";" + movie.getDescription() + "\n");
             writer.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("The movie "+movie.getTitle()+" has been added.");
+        System.out.println("The movie " + movie.getTitle() + " has been added.");
         return movie;
     }
 
     @Override
     public Iterable<Movie> findAll() {
 
-        List<Movie> movies=new ArrayList<>();
+        List<Movie> movies = new ArrayList<>();
 
-        try(BufferedReader br = new BufferedReader(new FileReader(file))) {
-            for(String line; (line = br.readLine()) != null; ) {
-                final Movie movie=new Movie();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            for (String line; (line = br.readLine()) != null; ) {
+                final Movie movie = new Movie();
                 final String[] allProperties = line.split("\\;");
                 movie.setId(Long.parseLong(allProperties[0]));
                 movie.setTitle(allProperties[1]);
@@ -68,12 +63,12 @@ public class FileMovieRepository implements MovieRepositoryInterface {
     public Optional<Movie> findById(Long id) {
         final Movie movie = new Movie();
         movie.setId(id);
-        try(BufferedReader br = new BufferedReader(new FileReader(file))) {
-            for(String line; (line = br.readLine()) != null; ) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            for (String line; (line = br.readLine()) != null; ) {
 
                 final String[] allProperties = line.split("\\;");
-                final long nextMovieId=Long.parseLong(allProperties[0]);
-                if (nextMovieId==id) {
+                final long nextMovieId = Long.parseLong(allProperties[0]);
+                if (nextMovieId == id) {
                     movie.setTitle(allProperties[1]);
                     movie.setGenre(allProperties[2]);
                     movie.setDescription(allProperties[3]);
@@ -113,6 +108,21 @@ public class FileMovieRepository implements MovieRepositoryInterface {
     public void delete(Movie movie) {
         throw new UnsupportedOperationException();
     }
+
+    /**
+     * Deletes all instances of the type {@code T} with the given IDs.
+     * <p>
+     * Entities that aren't found in the persistence store are silently ignored.
+     *
+     * @param longs must not be {@literal null}. Must not contain {@literal null} elements.
+     * @throws IllegalArgumentException in case the given {@literal ids} or one of its elements is {@literal null}.
+     * @since 2.5
+     */
+    @Override
+    public void deleteAllById(Iterable<? extends Long> longs) {
+
+    }
+
 
     @Override
     public void deleteAll(Iterable<? extends Movie> iterable) {
