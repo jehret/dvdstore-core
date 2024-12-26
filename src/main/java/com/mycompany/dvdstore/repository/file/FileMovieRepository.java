@@ -114,20 +114,6 @@ public class FileMovieRepository implements MovieRepositoryInterface {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * Deletes all instances of the type {@code T} with the given IDs.
-     * <p>
-     * Entities that aren't found in the persistence store are silently ignored.
-     *
-     * @param longs must not be {@literal null}. Must not contain {@literal null} elements.
-     * @throws IllegalArgumentException in case the given {@literal ids} or one of its elements is {@literal null}.
-     * @since 2.5
-     */
-    @Override
-    public void deleteAllById(Iterable<? extends Long> longs) {
-
-    }
-
     @Override
     public void deleteAll(Iterable<? extends Movie> iterable) {
         throw new UnsupportedOperationException();

@@ -1,7 +1,7 @@
 package com.mycompany.dvdstore.entity;
 
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name="APP_USER")
