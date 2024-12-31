@@ -125,7 +125,7 @@ public class FileMovieRepository implements MovieRepositoryInterface {
      */
     @Override
     public void deleteAllById(Iterable<? extends Long> longs) {
-
+        throw new UnsupportedOperationException();
     }
 
 
