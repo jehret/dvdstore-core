@@ -1,5 +1,6 @@
 package com.mycompany.dvdstore.entity;
 
+
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,9 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false,length = 20)
     private String title;
+    @Column(nullable = false,length = 20)
     private String genre;
     private String description;
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
@@ -31,7 +34,8 @@ public class Movie {
     )
     private List<Review> reviews=new ArrayList<>();
 
-    public Movie(Long id, String title, String genre, String description) {
+
+    public Movie(Long id, String title, String genre, String description, Actor mainActor) {
         this.id = id;
         this.title = title;
         this.genre = genre;
