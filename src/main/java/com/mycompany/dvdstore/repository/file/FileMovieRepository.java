@@ -51,6 +51,7 @@ public class FileMovieRepository implements MovieRepositoryInterface {
                 movie.setId(Long.parseLong(allProperties[0]));
                 movie.setTitle(allProperties[1]);
                 movie.setGenre(allProperties[2]);
+                movie.setDescription(allProperties[3]);
                 movies.add(movie);
             }
         } catch (FileNotFoundException e) {
